@@ -1,0 +1,424 @@
+[
+  {
+    "id": "car-001",
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2024,
+    "price": 145000000,
+    "fuelType": "hybrid",
+    "bodyType": "sedan",
+    "drivetrain": "fwd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 51,
+      "highway": 53,
+      "combined": 52
+    },
+    "features": [
+      "Apple CarPlay",
+      "Android Auto",
+      "Adaptive Cruise Control",
+      "Lane Keeping Assist",
+      "Automatic Emergency Braking",
+      "Blind Spot Monitoring",
+      "Rear Cross Traffic Alert",
+      "LED Headlights",
+      "Dual-Zone Climate Control",
+      "8-inch Touchscreen"
+    ],
+    "description": "Reliable midsize hybrid sedan with excellent fuel economy",
+    "specifications": {
+      "horsepower": 208,
+      "torque": 163,
+      "seating": 5,
+      "cargoSpace": 15
+    }
+  },
+  {
+    "id": "car-002",
+    "make": "Honda",
+    "model": "CR-V",
+    "year": 2024,
+    "price": 165000000,
+    "fuelType": "gasoline",
+    "bodyType": "suv",
+    "drivetrain": "awd",
+    "transmission": "cvt",
+    "mpg": {
+      "city": 28,
+      "highway": 34,
+      "combined": 30
+    },
+    "features": [
+      "Honda Sensing Suite",
+      "Apple CarPlay",
+      "Android Auto",
+      "Sunroof",
+      "Heated Seats",
+      "Power Liftgate",
+      "Wireless Charging",
+      "Remote Start",
+      "LED Headlights",
+      "Dual-Zone Climate Control",
+      "7-inch Touchscreen"
+    ],
+    "description": "Spacious compact SUV with advanced safety features",
+    "specifications": {
+      "horsepower": 190,
+      "torque": 179,
+      "seating": 5,
+      "cargoSpace": 39
+    }
+  },
+  {
+    "id": "car-003",
+    "make": "Tesla",
+    "model": "Model 3",
+    "year": 2024,
+    "price": 220000000,
+    "fuelType": "electric",
+    "bodyType": "sedan",
+    "drivetrain": "rwd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 140,
+      "highway": 132,
+      "combined": 136
+    },
+    "features": [
+      "Autopilot",
+      "15-inch Touchscreen",
+      "Premium Audio",
+      "Glass Roof",
+      "Smartphone App Control",
+      "Over-the-Air Updates",
+      "Supercharger Network Access",
+      "Navigation",
+      "Sentry Mode",
+      "Dog Mode",
+      "Built-in Dashcam"
+    ],
+    "description": "Electric sedan with cutting-edge technology and performance",
+    "specifications": {
+      "horsepower": 283,
+      "torque": 307,
+      "seating": 5,
+      "cargoSpace": 23
+    }
+  },
+  {
+    "id": "car-004",
+    "make": "Ford",
+    "model": "F-150",
+    "year": 2023,
+    "price": 235000000,
+    "fuelType": "gasoline",
+    "bodyType": "truck",
+    "drivetrain": "4wd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 19,
+      "highway": 24,
+      "combined": 21
+    },
+    "features": [
+      "SYNC 4 Infotainment",
+      "Apple CarPlay",
+      "Android Auto",
+      "Pro Trailer Backup Assist",
+      "360-Degree Camera",
+      "Heated Seats",
+      "Remote Start",
+      "Power Tailgate",
+      "LED Headlights",
+      "FordPass Connect"
+    ],
+    "description": "America's best-selling truck with impressive capability",
+    "specifications": {
+      "horsepower": 400,
+      "torque": 410,
+      "seating": 6,
+      "cargoSpace": 52
+    }
+  },
+  {
+    "id": "car-005",
+    "make": "Mazda",
+    "model": "CX-5",
+    "year": 2024,
+    "price": 150000000,
+    "fuelType": "gasoline",
+    "bodyType": "suv",
+    "drivetrain": "awd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 25,
+      "highway": 31,
+      "combined": 27
+    },
+    "features": [
+      "i-Activsense Safety Suite",
+      "Apple CarPlay",
+      "Android Auto",
+      "Bose Premium Audio",
+      "Head-Up Display",
+      "Heated Seats",
+      "Power Liftgate",
+      "LED Headlights",
+      "Dual-Zone Climate Control",
+      "10.25-inch Touchscreen"
+    ],
+    "description": "Stylish compact SUV with upscale interior",
+    "specifications": {
+      "horsepower": 187,
+      "torque": 186,
+      "seating": 5,
+      "cargoSpace": 31
+    }
+  },
+  {
+    "id": "car-006",
+    "make": "Subaru",
+    "model": "Outback",
+    "year": 2024,
+    "price": 155000000,
+    "fuelType": "gasoline",
+    "bodyType": "suv",
+    "drivetrain": "awd",
+    "transmission": "cvt",
+    "mpg": {
+      "city": 26,
+      "highway": 33,
+      "combined": 29
+    },
+    "features": [
+      "EyeSight Driver Assist",
+      "Apple CarPlay",
+      "Android Auto",
+      "Roof Rails",
+      "Heated Seats",
+      "Power Liftgate",
+      "All-Wheel Drive",
+      "X-Mode",
+      "Hill Descent Control",
+      "11.6-inch Touchscreen"
+    ],
+    "description": "Adventure-ready SUV with standard all-wheel drive",
+    "specifications": {
+      "horsepower": 182,
+      "torque": 176,
+      "seating": 5,
+      "cargoSpace": 33
+    }
+  },
+  {
+    "id": "car-007",
+    "make": "Hyundai",
+    "model": "Ioniq 6",
+    "year": 2024,
+    "price": 240000000,
+    "fuelType": "electric",
+    "bodyType": "sedan",
+    "drivetrain": "rwd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 149,
+      "highway": 131,
+      "combined": 140
+    },
+    "features": [
+      "Highway Driving Assist 2",
+      "Dual 12-inch Displays",
+      "Augmented Reality Head-Up Display",
+      "Premium Relaxation Seats",
+      "Ambient Lighting",
+      "Smart Cruise Control",
+      "Blind Spot Monitoring",
+      "Surround View Monitor",
+      "Vehicle-to-Load Capability",
+      "Digital Key"
+    ],
+    "description": "Futuristic electric sedan with impressive range",
+    "specifications": {
+      "horsepower": 225,
+      "torque": 258,
+      "seating": 5,
+      "cargoSpace": 11
+    }
+  },
+  {
+    "id": "car-008",
+    "make": "Chevrolet",
+    "model": "Silverado",
+    "year": 2023,
+    "price": 220000000,
+    "fuelType": "gasoline",
+    "bodyType": "truck",
+    "drivetrain": "4wd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 16,
+      "highway": 20,
+      "combined": 18
+    },
+    "features": [
+      "MyLink Infotainment",
+      "Apple CarPlay",
+      "Android Auto",
+      "Bed Tie-Downs",
+      "Trailering Package",
+      "Rear Camera Mirror",
+      "Teen Driver",
+      "Remote Start",
+      "Wireless Charging",
+      "OnStar"
+    ],
+    "description": "Heavy-duty pickup with strong towing capacity",
+    "specifications": {
+      "horsepower": 355,
+      "torque": 383,
+      "seating": 6,
+      "cargoSpace": 54
+    }
+  },
+  {
+    "id": "car-009",
+    "make": "Volkswagen",
+    "model": "ID.4",
+    "year": 2024,
+    "price": 210000000,
+    "fuelType": "electric",
+    "bodyType": "suv",
+    "drivetrain": "rwd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 112,
+      "highway": 99,
+      "combined": 104
+    },
+    "features": [
+      "IQ.Drive Assist",
+      "10-inch Touchscreen",
+      "Digital Cockpit",
+      "Panoramic Sunroof",
+      "ID.Light",
+      "3 Years Free Charging",
+      "Wireless Apple CarPlay",
+      "Android Auto",
+      "Ambient Lighting",
+      "Power Liftgate"
+    ],
+    "description": "Practical electric SUV with family-friendly features",
+    "specifications": {
+      "horsepower": 201,
+      "torque": 229,
+      "seating": 5,
+      "cargoSpace": 30
+    }
+  },
+  {
+    "id": "car-010",
+    "make": "Nissan",
+    "model": "Altima",
+    "year": 2024,
+    "price": 135000000,
+    "fuelType": "gasoline",
+    "bodyType": "sedan",
+    "drivetrain": "fwd",
+    "transmission": "cvt",
+    "mpg": {
+      "city": 28,
+      "highway": 39,
+      "combined": 32
+    },
+    "features": [
+      "ProPILOT Assist",
+      "Apple CarPlay",
+      "Android Auto",
+      "NissanConnect",
+      "Intelligent Emergency Braking",
+      "Blind Spot Warning",
+      "Rear Cross Traffic Alert",
+      "8-inch Touchscreen",
+      "Zero Gravity Seats",
+      "Dual-Zone Climate Control"
+    ],
+    "description": "Comfortable midsize sedan with good value",
+    "specifications": {
+      "horsepower": 188,
+      "torque": 180,
+      "seating": 5,
+      "cargoSpace": 15
+    }
+  },
+  {
+    "id": "car-011",
+    "make": "Kia",
+    "model": "Sportage",
+    "year": 2024,
+    "price": 148000000,
+    "fuelType": "hybrid",
+    "bodyType": "suv",
+    "drivetrain": "awd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 43,
+      "highway": 43,
+      "combined": 43
+    },
+    "features": [
+      "Drive Mode Select",
+      "Apple CarPlay",
+      "Android Auto",
+      "Wireless Charging",
+      "Panoramic Sunroof",
+      "Highway Driving Assist",
+      "Blind Spot Monitoring",
+      "Smart Cruise Control",
+      "12.3-inch Touchscreen",
+      "Harman Kardon Audio"
+    ],
+    "description": "Hybrid SUV with excellent fuel economy and features",
+    "specifications": {
+      "horsepower": 227,
+      "torque": 258,
+      "seating": 5,
+      "cargoSpace": 39
+    }
+  },
+  {
+    "id": "car-012",
+    "make": "BMW",
+    "model": "X5",
+    "year": 2024,
+    "price": 340000000,
+    "fuelType": "plugin-hybrid",
+    "bodyType": "suv",
+    "drivetrain": "awd",
+    "transmission": "automatic",
+    "mpg": {
+      "city": 50,
+      "highway": 54,
+      "combined": 52
+    },
+    "features": [
+      "iDrive 8 System",
+      "Curved Display",
+      "Gesture Control",
+      "Harman Kardon Surround Sound",
+      "Panoramic Sunroof",
+      "Heated/Ventilated Seats",
+      "Wireless Apple CarPlay",
+      "Head-Up Display",
+      "Driving Assistant Pro",
+      "Parking Assistant Plus"
+    ],
+    "description": "Luxury plug-in hybrid SUV with premium features",
+    "specifications": {
+      "horsepower": 389,
+      "torque": 443,
+      "seating": 5,
+      "cargoSpace": 33
+    }
+  }
+]

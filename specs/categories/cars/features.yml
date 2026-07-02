@@ -1,0 +1,96 @@
+meta:
+  version: "1.0.0"
+  category: "cars"
+  last_updated: "2026-06-28"
+
+feature_categories:
+  safety:
+    name: "Safety Features"
+    priority: "high"
+    features:
+      - "Automatic Emergency Braking"
+      - "Lane Keeping Assist"
+      - "Lane Departure Warning"
+      - "Blind Spot Monitoring"
+      - "Rear Cross Traffic Alert"
+      - "Adaptive Cruise Control"
+      - "Forward Collision Warning"
+      - "Pedestrian Detection"
+      - "360-Degree Camera"
+      - "Surround View Monitor"
+  
+  infotainment:
+    name: "Infotainment & Connectivity"
+    priority: "medium"
+    features:
+      - "Apple CarPlay"
+      - "Android Auto"
+      - "Wireless Charging"
+      - "Premium Audio System"
+      - "Navigation System"
+      - "Touchscreen Display"
+      - "Digital Instrument Cluster"
+      - "Head-Up Display"
+      - "Voice Control"
+      - "Smartphone Integration"
+  
+  comfort:
+    name: "Comfort & Convenience"
+    priority: "medium"
+    features:
+      - "Heated Seats"
+      - "Ventilated Seats"
+      - "Power Seats"
+      - "Memory Seats"
+      - "Dual-Zone Climate Control"
+      - "Tri-Zone Climate Control"
+      - "Remote Start"
+      - "Keyless Entry"
+      - "Power Liftgate"
+      - "Panoramic Sunroof"
+      - "Ambient Lighting"
+  
+  electric_specific:
+    name: "Electric Vehicle Features"
+    priority: "high"
+    applicable_to: ["electric", "plugin-hybrid"]
+    features:
+      - "Fast Charging Capability"
+      - "Home Charging Kit"
+      - "Regenerative Braking"
+      - "Battery Warranty"
+      - "Over-the-Air Updates"
+      - "Preconditioning"
+      - "Charging Network Access"
+
+feature_importance:
+  must_have:
+    description: "Essential features for modern vehicles"
+    features:
+      - "Automatic Emergency Braking"
+      - "Backup Camera"
+      - "Bluetooth"
+  
+  highly_desirable:
+    description: "Features that significantly enhance value"
+    features:
+      - "Apple CarPlay"
+      - "Android Auto"
+      - "Adaptive Cruise Control"
+      - "Blind Spot Monitoring"
+      - "Heated Seats"
+  
+  nice_to_have:
+    description: "Premium features that add convenience"
+    features:
+      - "Panoramic Sunroof"
+      - "Wireless Charging"
+      - "Head-Up Display"
+      - "Premium Audio"
+      - "Ventilated Seats"
+
+notes: |
+  Feature definitions for the car category.
+  - Used by recommendation agents to score vehicles
+  - Feature matching contributes to recommendation score
+  - Future: Allow user-defined feature preferences and weights

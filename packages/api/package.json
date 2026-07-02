@@ -1,0 +1,41 @@
+{
+  "name": "@decisionhub/api",
+  "version": "0.1.0",
+  "description": "DecisionHub AI REST API",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "decisionhub",
+    "api",
+    "express"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@decisionhub/shared": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "@typescript-eslint/parser": "^7.7.0",
+    "@vitest/ui": "^4.1.9",
+    "eslint": "^8.57.0",
+    "tsx": "^4.7.2",
+    "vitest": "^4.1.9"
+  }
+}

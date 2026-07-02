@@ -1,0 +1,150 @@
+meta:
+  version: "1.0.0"
+  category: "cars"
+  last_updated: "2026-06-28"
+  author: "DecisionHub Team"
+
+category:
+  id: "cars"
+  name: "Cars"
+  description: "Automotive vehicle category for purchase decisions"
+  icon: "🚗"
+  
+attributes:
+  - id: "make"
+    name: "Make"
+    type: "string"
+    required: true
+    description: "Vehicle manufacturer"
+    examples: ["Toyota", "Honda", "Tesla", "Ford"]
+    
+  - id: "model"
+    name: "Model"
+    type: "string"
+    required: true
+    description: "Specific model name"
+    
+  - id: "year"
+    name: "Year"
+    type: "integer"
+    required: true
+    range: [2015, 2026]
+    description: "Model year"
+    
+  - id: "price"
+    name: "Price"
+    type: "number"
+    required: true
+    unit: "USD"
+    description: "Base price in US dollars"
+    
+  - id: "fuel_type"
+    name: "Fuel Type"
+    type: "enum"
+    options: ["gasoline", "diesel", "electric", "hybrid", "plugin-hybrid"]
+    required: true
+    description: "Primary fuel/power source"
+    
+  - id: "body_type"
+    name: "Body Type"
+    type: "enum"
+    options: ["sedan", "suv", "truck", "coupe", "hatchback", "van"]
+    description: "Vehicle body style"
+    
+  - id: "drivetrain"
+    name: "Drivetrain"
+    type: "enum"
+    options: ["fwd", "rwd", "awd", "4wd"]
+    description: "Drive wheel configuration"
+    
+  - id: "transmission"
+    name: "Transmission"
+    type: "enum"
+    options: ["manual", "automatic", "cvt", "dual-clutch"]
+    description: "Transmission type"
+    
+  - id: "mpg"
+    name: "Fuel Economy"
+    type: "object"
+    properties:
+      city: 
+        type: "number"
+        description: "City MPG or MPGe for electric"
+      highway:
+        type: "number"
+        description: "Highway MPG or MPGe"
+      combined:
+        type: "number"
+        description: "Combined MPG or MPGe"
+    
+  - id: "features"
+    name: "Features"
+    type: "array"
+    items_type: "string"
+    description: "List of vehicle features and options"
+
+  - id: "specifications"
+    name: "Specifications"
+    type: "object"
+    properties:
+      horsepower:
+        type: "number"
+        description: "Engine horsepower"
+      torque:
+        type: "number"
+        description: "Engine torque (lb-ft)"
+      seating:
+        type: "number"
+        description: "Passenger capacity"
+      cargo_space:
+        type: "number"
+        description: "Cargo volume (cubic feet)"
+
+decision_factors:
+  - id: "budget"
+    name: "Budget"
+    weight: 0.3
+    description: "User's price range and affordability"
+    
+  - id: "efficiency"
+    name: "Fuel Efficiency"
+    weight: 0.2
+    description: "MPG or electric range for operating costs"
+    
+  - id: "space"
+    name: "Space Requirements"
+    weight: 0.15
+    description: "Passenger and cargo capacity needs"
+    
+  - id: "performance"
+    name: "Performance"
+    weight: 0.15
+    description: "Horsepower, acceleration, handling"
+    
+  - id: "reliability"
+    name: "Reliability"
+    weight: 0.1
+    description: "Historical reliability ratings and reviews"
+    
+  - id: "features"
+    name: "Features & Technology"
+    weight: 0.1
+    description: "Safety features, infotainment, convenience options"
+
+ai_agent_guidance:
+  recommendation_agent:
+    description: "Analyzes user criteria and recommends suitable vehicles"
+    approach: "Score-based filtering and ranking"
+    output_format: "Ranked list with reasoning"
+    
+  comparison_agent:
+    description: "Compares multiple vehicles side-by-side"
+    approach: "Attribute-by-attribute comparison with winner determination"
+    output_format: "Comparison table with recommendation"
+
+notes: |
+  This spec defines the car category for DecisionHub AI MVP.
+  - Current implementation: Mock AI agents with rule-based logic
+  - Future: Real LLM integration using this spec as context
+  - Data source: Local JSON file (packages/api/src/data/cars.json)
+  - Category design is intentionally generic to allow easy addition of new categories
