@@ -1752,6 +1752,489 @@ The project is ready for demonstration and user feedback, with a clear roadmap f
 
 ---
 
-**Document Status**: ✅ Complete - Reflects Current Implementation  
-**Next Update**: After new phase planning or significant features  
+## 11. Phase 2: Real-Time Data Collection (NEW)
+
+### 11.1 Overview
+
+**Feature**: FR-2.1 - Real-Time Data Collection Agents  
+**Status**: 📋 Planned  
+**Priority**: High  
+**Related Spec**: `specs/features/real-time-data-agents.md`
+
+**Objective**: Replace mock data with real-time information from trusted external sources including professional reviews, Colombian market prices, and official safety ratings.
+
+---
+
+### 11.2 Infrastructure Tasks
+
+#### TASK-FEAT-RT001: Web Scraping Infrastructure
+**Status**: 📋 Planned  
+**Priority**: Critical  
+**Effort**: 8 hours  
+**Dependencies**: None
+
+**Description**: Set up web scraping infrastructure with proper rate limiting and caching
+
+**Technical Requirements**:
+- Install `cheerio`, `axios`, `puppeteer` (if needed)
+- Install `node-cache` for in-memory caching
+- Install `bottleneck` for rate limiting
+- Configure respect for `robots.txt`
+
+**Acceptance Criteria**:
+- [ ] Dependencies installed and configured
+- [ ] Cache service with configurable TTL
+- [ ] Rate limiter with 10 req/min per source
+- [ ] Error handling and retry logic
+- [ ] User-Agent properly configured
+- [ ] Unit tests for cache and rate limiter
+
+**Files to Create**:
+- `packages/api/src/services/cache/dataCache.ts`
+- `packages/api/src/services/scraping/baseScraper.ts`
+- `packages/api/src/services/scraping/rateLimiter.ts`
+- `packages/api/src/services/cache/dataCache.spec.ts`
+
+**Environment Variables**:
+```bash
+ENABLE_REAL_TIME_DATA=true
+REAL_TIME_TIMEOUT=10000
+CACHE_TTL_REVIEWS=86400
+CACHE_TTL_PRICING=7200
+```
+
+---
+
+#### TASK-FEAT-RT002: External API Clients
+**Status**: 📋 Planned  
+**Priority**: High  
+**Effort**: 6 hours  
+**Dependencies**: TASK-FEAT-RT001
+
+**Description**: Implement API clients for external services
+
+**APIs to Integrate**:
+1. NHTSA API (https://api.nhtsa.gov/)
+2. Mercado Libre API
+3. Edmunds API (optional)
+
+**Acceptance Criteria**:
+- [ ] NHTSA client with vehicle safety lookups
+- [ ] Mercado Libre client with OAuth
+- [ ] Proper error handling and timeouts
+- [ ] TypeScript interfaces for responses
+- [ ] Unit tests with mocked responses
+- [ ] API keys from environment variables
+
+**Files to Create**:
+- `packages/api/src/services/apis/nhtsaClient.ts`
+- `packages/api/src/services/apis/mercadoLibreClient.ts`
+- `packages/api/src/services/apis/edmundsClient.ts`
+- `packages/api/src/services/apis/__tests__/nhtsaClient.spec.ts`
+
+**Environment Variables**:
+```bash
+MERCADOLIBRE_APP_ID=your_app_id
+MERCADOLIBRE_SECRET_KEY=your_secret
+EDMUNDS_API_KEY=your_key
+```
+
+---
+
+### 11.3 Agent Implementation Tasks
+
+#### TASK-FEAT-RT003: Reviews Agent
+**Status**: 📋 Planned  
+**Priority**: High  
+**Effort**: 10 hours  
+**Dependencies**: TASK-FEAT-RT001
+
+**Description**: Implement agent to fetch professional vehicle reviews
+
+**Data Sources**:
+- Consumer Reports (web scraping)
+- Edmunds (API or scraping)
+- Kelley Blue Book (web scraping)
+
+**Acceptance Criteria**:
+- [ ] ReviewsAgent extends BaseAgent
+- [ ] Fetches from 3 sources in parallel
+- [ ] Timeout of 10 seconds per source
+- [ ] Returns standardized ReviewData interface
+- [ ] Handles partial failures gracefully
+- [ ] Caches results for 24 hours
+- [ ] Unit tests with 90%+ coverage
+- [ ] Integration tests with real sources
+
+**Output Interface**:
+```typescript
+interface ReviewData {
+  source: string;
+  rating: number; // 0-10
+  pros: string[];
+  cons: string[];
+  summary: string;
+  url: string;
+  lastUpdated: Date;
+}
+```
+
+**Files to Create**:
+- `packages/api/src/agents/realtime/ReviewsAgent.ts`
+- `packages/api/src/agents/realtime/ReviewsAgent.spec.ts`
+- `packages/api/src/services/scraping/consumerReportsScraper.ts`
+- `packages/api/src/services/scraping/kbbScraper.ts`
+
+---
+
+#### TASK-FEAT-RT004: Pricing Agent
+**Status**: 📋 Planned  
+**Priority**: High  
+**Effort**: 12 hours  
+**Dependencies**: TASK-FEAT-RT001, TASK-FEAT-RT002
+
+**Description**: Implement agent to fetch real Colombian market prices
+
+**Data Sources**:
+- TuCarro.com (web scraping)
+- OLX Colombia (API or scraping)
+- Mercado Libre Colombia (API)
+
+**Acceptance Criteria**:
+- [ ] PricingAgent extends BaseAgent
+- [ ] Searches by make, model, year
+- [ ] Returns price range (min, max, average)
+- [ ] Includes number of listings found
+- [ ] Filters by condition (new/used)
+- [ ] Timeout of 10 seconds per source
+- [ ] Caches results for 2 hours
+- [ ] Prices formatted in COP
+- [ ] Unit tests with 90%+ coverage
+
+**Output Interface**:
+```typescript
+interface PricingData {
+  source: string;
+  listings: number;
+  priceRange: {
+    min: number;
+    max: number;
+    average: number;
+    currency: 'COP';
+  };
+  year: number;
+  condition: 'new' | 'used';
+  locations: string[];
+}
+```
+
+**Files to Create**:
+- `packages/api/src/agents/realtime/PricingAgent.ts`
+- `packages/api/src/agents/realtime/PricingAgent.spec.ts`
+- `packages/api/src/services/scraping/tuCarroScraper.ts`
+- `packages/api/src/services/scraping/olxScraper.ts`
+
+---
+
+#### TASK-FEAT-RT005: Safety Agent
+**Status**: 📋 Planned  
+**Priority**: Medium  
+**Effort**: 8 hours  
+**Dependencies**: TASK-FEAT-RT002
+
+**Description**: Implement agent to fetch official safety ratings
+
+**Data Sources**:
+- NHTSA API (USA crash tests)
+- IIHS (web scraping)
+- Latin NCAP database
+
+**Acceptance Criteria**:
+- [ ] SafetyAgent extends BaseAgent
+- [ ] Fetches from 3 sources in parallel
+- [ ] Returns star ratings (1-5)
+- [ ] Includes category breakdowns
+- [ ] Shows test year vs vehicle year
+- [ ] Timeout of 10 seconds per source
+- [ ] Caches results for 24 hours
+- [ ] Unit tests with 90%+ coverage
+
+**Output Interface**:
+```typescript
+interface SafetyData {
+  source: string;
+  overallRating: number; // 1-5 stars
+  categories: {
+    adultOccupant?: number;
+    childOccupant?: number;
+    pedestrian?: number;
+    safetyAssist?: number;
+  };
+  testYear: number;
+  vehicleYear: number;
+  crashTestVideos?: string[];
+}
+```
+
+**Files to Create**:
+- `packages/api/src/agents/realtime/SafetyAgent.ts`
+- `packages/api/src/agents/realtime/SafetyAgent.spec.ts`
+
+---
+
+### 11.4 Orchestration Tasks
+
+#### TASK-FEAT-RT006: Real-Time Data Orchestrator
+**Status**: 📋 Planned  
+**Priority**: Critical  
+**Effort**: 6 hours  
+**Dependencies**: TASK-FEAT-RT003, TASK-FEAT-RT004, TASK-FEAT-RT005
+
+**Description**: Orchestrate parallel execution of real-time data agents
+
+**Acceptance Criteria**:
+- [ ] RealTimeDataOrchestrator extends BaseAgent
+- [ ] Executes all 3 agents in parallel
+- [ ] Uses Promise.allSettled for fault tolerance
+- [ ] Applies 10-second timeout per agent
+- [ ] Calculates data quality score
+- [ ] Provides fallback to mock data
+- [ ] Adds AgentTrace support
+- [ ] Unit tests with timeout scenarios
+
+**Output Interface**:
+```typescript
+interface RealTimeDataBundle {
+  reviews: ReviewData[];
+  pricing: PricingData[];
+  safety: SafetyData[];
+  dataQuality: {
+    overall: number; // 0-100
+    reviewsAvailable: boolean;
+    pricingAvailable: boolean;
+    safetyAvailable: boolean;
+  };
+  message: string;
+}
+```
+
+**Files to Create**:
+- `packages/api/src/agents/realtime/RealTimeDataOrchestrator.ts`
+- `packages/api/src/agents/realtime/RealTimeDataOrchestrator.spec.ts`
+
+---
+
+#### TASK-FEAT-RT007: Enhanced Lead Decision Agent
+**Status**: 📋 Planned  
+**Priority**: High  
+**Effort**: 8 hours  
+**Dependencies**: TASK-FEAT-RT006
+
+**Description**: Enhance LeadDecisionAgent to incorporate real-time data
+
+**Enhancements**:
+- Accept RealTimeDataBundle as input
+- Consider real reviews in reasoning
+- Validate budget against real prices
+- Prioritize vehicles with better safety ratings
+- Generate comparison between expected vs actual data
+
+**Acceptance Criteria**:
+- [ ] Modified LeadDecisionAgent input interface
+- [ ] Integrates real-time data into AI prompt
+- [ ] Mentions data sources in reasoning
+- [ ] Handles missing data gracefully
+- [ ] Backward compatible with mock data
+- [ ] Updated unit tests
+- [ ] Integration tests with real data
+
+**Files to Modify**:
+- `packages/api/src/agents/LeadDecisionAgent.ts`
+- `packages/api/src/agents/LeadDecisionAgent.spec.ts`
+
+**New Input Interface**:
+```typescript
+interface EnhancedDecisionInput {
+  query: string;
+  topRecommendations: CarRecommendation[];
+  realTimeData?: RealTimeDataBundle;
+}
+```
+
+---
+
+### 11.5 Frontend Tasks
+
+#### TASK-FEAT-RT008: Real-Time Data UI Components
+**Status**: 📋 Planned  
+**Priority**: Medium  
+**Effort**: 10 hours  
+**Dependencies**: TASK-FEAT-RT007
+
+**Description**: Create UI components to display real-time data
+
+**Components to Create**:
+1. DataSourceBadge - Shows data freshness
+2. PriceRangeCard - Displays real price ranges
+3. ReviewsSection - Shows professional reviews
+4. SafetyRatingCard - Displays safety scores
+
+**Acceptance Criteria**:
+- [ ] Components follow existing design system
+- [ ] Mobile-responsive layouts
+- [ ] Loading states for async data
+- [ ] Error states with retry options
+- [ ] Source attribution with links
+- [ ] TypeScript props interfaces
+- [ ] Storybook stories (optional)
+
+**Files to Create**:
+- `packages/web/src/components/data/DataSourceBadge.tsx`
+- `packages/web/src/components/data/PriceRangeCard.tsx`
+- `packages/web/src/components/data/ReviewsSection.tsx`
+- `packages/web/src/components/data/SafetyRatingCard.tsx`
+
+---
+
+#### TASK-FEAT-RT009: Integration with Recommendation List
+**Status**: 📋 Planned  
+**Priority**: Medium  
+**Effort**: 6 hours  
+**Dependencies**: TASK-FEAT-RT008
+
+**Description**: Integrate real-time data components into recommendation display
+
+**Acceptance Criteria**:
+- [ ] Show real prices in car cards
+- [ ] Display data freshness indicators
+- [ ] Add expandable reviews section
+- [ ] Show safety ratings prominently
+- [ ] Handle missing data gracefully
+- [ ] Update API service to fetch real-time data
+
+**Files to Modify**:
+- `packages/web/src/components/cars/RecommendationList.tsx`
+- `packages/web/src/services/api.ts`
+
+---
+
+### 11.6 Testing Tasks
+
+#### TASK-FEAT-RT010: Integration Tests
+**Status**: 📋 Planned  
+**Priority**: High  
+**Effort**: 8 hours  
+**Dependencies**: All agent tasks complete
+
+**Description**: Create integration tests for complete real-time workflow
+
+**Test Scenarios**:
+1. Full workflow with all data available
+2. Partial data availability
+3. Complete data unavailability (fallback)
+4. Timeout scenarios
+5. Rate limiting scenarios
+6. Cache hit/miss scenarios
+
+**Acceptance Criteria**:
+- [ ] End-to-end tests with real APIs (optional)
+- [ ] Mock-based integration tests
+- [ ] Performance benchmarks
+- [ ] Error recovery tests
+- [ ] Cache effectiveness tests
+- [ ] 80%+ code coverage
+
+**Files to Create**:
+- `packages/api/src/agents/realtime/__tests__/integration.spec.ts`
+- `packages/api/src/agents/realtime/__tests__/performance.spec.ts`
+
+---
+
+#### TASK-FEAT-RT011: Performance Monitoring
+**Status**: 📋 Planned  
+**Priority**: Medium  
+**Effort**: 4 hours  
+**Dependencies**: TASK-FEAT-RT010
+
+**Description**: Add performance monitoring for real-time data fetching
+
+**Metrics to Track**:
+- Response time per agent
+- Cache hit rate
+- Data availability percentage
+- Error rate by source
+- Rate limit violations
+
+**Acceptance Criteria**:
+- [ ] Logging of all metrics
+- [ ] AgentTrace includes timing data
+- [ ] Dashboard endpoint for metrics (optional)
+- [ ] Alert thresholds configured
+- [ ] Performance report in logs
+
+**Files to Create**:
+- `packages/api/src/services/monitoring/performanceMonitor.ts`
+
+---
+
+### 11.7 Documentation Tasks
+
+#### TASK-FEAT-RT012: Real-Time Data Documentation
+**Status**: 📋 Planned  
+**Priority**: Low  
+**Effort**: 4 hours  
+**Dependencies**: All implementation tasks complete
+
+**Description**: Document real-time data collection system
+
+**Documentation to Create**:
+- Setup guide for API keys
+- Data source configuration
+- Caching strategy explanation
+- Rate limiting configuration
+- Troubleshooting guide
+- Update API documentation
+
+**Acceptance Criteria**:
+- [ ] REAL_TIME_DATA_GUIDE.md created
+- [ ] Environment variables documented
+- [ ] API endpoints documented
+- [ ] Examples of real-time data responses
+- [ ] Troubleshooting section
+- [ ] Update main README.md
+
+**Files to Create/Update**:
+- `docs/REAL_TIME_DATA_GUIDE.md`
+- `docs/API_DOCUMENTATION.md` (update)
+- `README.md` (update)
+- `.env.example` (update)
+
+---
+
+### 11.8 Task Summary
+
+**Total Tasks**: 12  
+**Estimated Effort**: 90 hours (~2.5 weeks for 1 developer)
+
+**Task Breakdown by Phase**:
+- **Phase 1 - Infrastructure**: 2 tasks (14 hours)
+- **Phase 2 - Agents**: 3 tasks (30 hours)
+- **Phase 3 - Orchestration**: 2 tasks (14 hours)
+- **Phase 4 - Frontend**: 2 tasks (16 hours)
+- **Phase 5 - Testing & Docs**: 3 tasks (16 hours)
+
+**Dependencies Chain**:
+```
+RT001 (Infrastructure) → RT003, RT004, RT005 (Agents)
+RT002 (API Clients) → RT004, RT005 (Pricing, Safety)
+RT003, RT004, RT005 → RT006 (Orchestrator)
+RT006 → RT007 (Enhanced Decision)
+RT007 → RT008, RT009 (Frontend)
+All → RT010, RT011, RT012 (Testing & Docs)
+```
+
+---
+
+**Document Status**: ✅ Complete - Includes Phase 2 Planning  
+**Next Update**: After Phase 2 implementation begins  
 **Maintained By**: Development Team
